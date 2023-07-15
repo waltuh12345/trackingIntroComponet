@@ -1,0 +1,151 @@
+@use "../util" as *;
+@use "../util/class" as *;
+
+svg {
+  fill: var(--clr-text);
+}
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: $ff;
+  font-size: 14px;
+  font-weight: $semibold;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  @extend .reset-btn;
+}
+
+.window {
+  display: none;
+}
+
+main nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0 0 0;
+  margin-bottom: 2rem;
+
+  .logo {
+    z-index: 4;
+  }
+}
+
+#menu-toggle {
+  z-index: 4;
+  @include changeMenu(false);
+
+  &.active {
+    @include changeMenu(true);
+  }
+}
+
+.menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  z-index: 3;
+
+  &-container {
+    overflow: hidden;
+    border-radius: 6px;
+    margin-top: 7rem;
+    position: relative;
+    width: min(82%, 400px);
+    margin-inline: auto;
+    text-align: center;
+    padding: 1.8rem 1.8rem;
+    box-shadow: $card;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: var(--clr-bg);
+      z-index: -2;
+    }
+
+    &::before {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      background-color: var(--clr-text);
+    }
+
+    > :last-child {
+      color: var(--clr-transparent);
+    }
+  }
+
+  ul {
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--loading-bg);
+    @include flex(column, 1rem);
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  #menu-toggle {
+    display: none;
+  }
+
+  .menu {
+    display: block;
+    position: initial;
+
+    &-container {
+      margin: 0;
+      padding: 0;
+      overflow: initial;
+      width: 100%;
+      border-radius: initial;
+      @include flex(row, 0);
+      align-items: center;
+      box-shadow: initial;
+      background-color: none;
+
+      &::before,
+      &::after {
+        background-color: none;
+        opacity: 0;
+      }
+
+      ul {
+        flex-direction: row;
+        padding: 0;
+        border: none;
+        margin: 0;
+      }
+
+      > :nth-child(3) {
+        margin: 0 1rem 0 3rem;
+      }
+    }
+
+    .theme-toggle {
+      position: initial;
+      top: initial;
+      right: initial;
+      order: 3;
+    }
+  }
+}

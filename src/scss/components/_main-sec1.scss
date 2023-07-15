@@ -1,0 +1,90 @@
+@use "../util" as *;
+@use "../util/class" as *;
+
+body {
+  overflow-x: hidden;
+}
+
+h1 {
+  font-weight: $semibold;
+  line-height: 1.1;
+}
+
+section {
+  padding: 1rem 0;
+}
+
+main {
+  position: relative;
+  min-height: 100vh;
+  font-weight: $regular;
+
+  .wrapper {
+    @include flex(row, 0);
+    align-items: center;
+    gap: 1.5rem;
+
+    span {
+      background-color: var(--clr-primary);
+      font-size: 12px;
+      border-radius: 16px;
+      padding: 0.2rem 0.6rem;
+      border-radius: $card;
+      color: var(--clr-bg);
+    }
+
+    .primary-btn {
+      color: var(--clr-white);
+      padding: 0;
+      padding: 10px 20px;
+
+      &:hover {
+        color: var(--clr-bg);
+      }
+    }
+
+    > :first-child {
+      font-weight: $semibold;
+    }
+  }
+
+  .col1 {
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  .col2 {
+    > * {
+      padding: 0.5rem 0;
+    }
+
+    p {
+      width: min(70%, 300px);
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  main > :nth-child(2) {
+    @include flex(row, 1rem);
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .col1 {
+      flex: 0 2 30rem;
+      animation: fadeInRight 1s;
+      margin-inline: initial;
+    }
+
+    .col2 {
+      flex: 0 1 26rem;
+      animation: fadeInLeft 1s;
+    }
+  }
+}
